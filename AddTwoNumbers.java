@@ -6,42 +6,34 @@
  *     ListNode(int x) { val = x; }
  * }
  */
-
 public class AddTwoNumbers {
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        long num1 = parseListNode(l1);
-        long num2 = parseListNode(l2);
-
-        long sum = num1 + num2;
-
-        return numberToListNode(sum);
-    }
-
-    private static long parseListNode(ListNode root) {
-        long num = root.val;
-        ListNode temp = root.next;
-        int counter = 1;
-        while (temp != null) {
-            if (temp.val == 0) {
-                counter++;
-                temp = temp.next;
-            }
-            num += temp.val * (Math.pow(10, counter));
-            temp = temp.next;
-            counter++;
-        }
-        return num;
-    }
-
-    private static ListNode numberToListNode(long num) {
-        ListNode solution = new ListNode((int) (num % 10));
-        num = num / 10;
+        ListNode itr1 = l1;
+        ListNode itr2 = l2;
+        ListNode solution = new ListNode(0); // return solution.next to skip this placeholder value
         ListNode temp = solution;
-        while (num != 0) {
-            temp.next = new ListNode((int) (num % 10));
-            num = num / 10;
-            temp = temp.next;
+
+        int carry = 0;
+
+        while (itr1 != null || itr2 != null) {
+            int n1 = 0;
+            int n2 = 0;
+            if (itr1 != null) {
+                n1 = itr1.val;
+                itr1 = itr1.next;
+            }
+            if (itr2 != null) {
+                n2 = itr2.val;
+                itr2 = itr2.next;
+            }
+            int sum = n1 + n2 + carry;
+            temp.next = new ListNode(sum % 10);
+            carry = sum / 10;
+            temp = temp.next;a
+
         }
-        return solution;
+        if (carry != 0)
+            temp.next = new ListNode(carry);
+        return solution.next;
     }
 }
