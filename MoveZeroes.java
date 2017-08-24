@@ -1,18 +1,15 @@
 class MoveZeroes {
     public void moveZeroes(int[] nums) {
-        if (nums != null && nums.length != 0) {
-            int toInsert = 0;
-            
-            for (int i = 0; i < nums.length; i++) {
-                if (nums[i] != 0) {
-                    nums[toInsert] = nums[i];
-                    toInsert++;
-                }
+        int pointer1 = 0;
+        int pointer2 = 0;
+        while (pointer2 < nums.length) {
+            if (nums[pointer2] != 0) {
+                int temp = nums[pointer1];
+                nums[pointer1] = nums[pointer2];
+                nums[pointer2] = temp;
+                pointer1++;
             }
-            
-            for (int i = toInsert; i < nums.length; i++) {
-                nums[i] = 0;
-            }
+            pointer2++;
         }
     }
 }
